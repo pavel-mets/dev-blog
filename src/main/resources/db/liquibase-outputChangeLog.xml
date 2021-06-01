@@ -1,0 +1,681 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="Pavel (generated)" id="1621605250981-1">
+        <createTable tableName="captcha_codes">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="TINYTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="secret_code" type="TINYTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-2">
+        <createTable tableName="global_settings">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-3">
+        <createTable tableName="post_comments">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT"/>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-4">
+        <createTable tableName="post_votes">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-5">
+        <createTable tableName="posts">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="is_active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NEW" name="moderation_status" type="ENUM('NEW', 'ACCEPTED', 'DECLINED')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="view_count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="moderator_id" type="INT"/>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-6">
+        <createTable tableName="tag2post">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-7">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-8">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_moderator" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="TEXT"/>
+            <column name="reg_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_time" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-9">
+        <addUniqueConstraint columnNames="post_id, tag_id" constraintName="t2p" tableName="tag2post"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-10">
+        <addUniqueConstraint columnNames="post_id, user_id" constraintName="userpost" tableName="post_votes"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-11">
+        <createIndex indexName="FK5lidm6cqbc7u4xhqpxm898qme" tableName="posts">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-12">
+        <createIndex indexName="FK6m7nr3iwh1auer2hk7rd05riw" tableName="posts">
+            <column name="moderator_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-13">
+        <createIndex indexName="FK9jh5u17tmu1g7xnlxa77ilo3u" tableName="post_votes">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-14">
+        <createIndex indexName="FK9q09ho9p8fmo6rcysnci8rocc" tableName="post_votes">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-15">
+        <createIndex indexName="FKaawaqxjs3br8dw5v90w7uu514" tableName="post_comments">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-16">
+        <createIndex indexName="FKc3b7s6wypcsvua2ycn4o1lv2c" tableName="post_comments">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-17">
+        <createIndex indexName="FKjou6suf2w810t2u3l96uasw3r" tableName="tag2post">
+            <column name="tag_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-18">
+        <createIndex indexName="FKpjoedhh4h917xf25el3odq20i" tableName="tag2post">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-19">
+        <createIndex indexName="FKsnxoecngu89u3fh4wdrgf0f2g" tableName="post_comments">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-20">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="posts" constraintName="FK5lidm6cqbc7u4xhqpxm898qme" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-21">
+        <addForeignKeyConstraint baseColumnNames="moderator_id" baseTableName="posts" constraintName="FK6m7nr3iwh1auer2hk7rd05riw" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-22">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="post_votes" constraintName="FK9jh5u17tmu1g7xnlxa77ilo3u" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="post_votes" constraintName="FK9q09ho9p8fmo6rcysnci8rocc" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-24">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="post_comments" constraintName="FKaawaqxjs3br8dw5v90w7uu514" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-25">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="post_comments" constraintName="FKc3b7s6wypcsvua2ycn4o1lv2c" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="post_comments" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-26">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="tag2post" constraintName="FKjou6suf2w810t2u3l96uasw3r" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="tags" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-27">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="tag2post" constraintName="FKpjoedhh4h917xf25el3odq20i" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621605250981-28">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="post_comments" constraintName="FKsnxoecngu89u3fh4wdrgf0f2g" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-1">
+        <createTable tableName="captcha_codes">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="TINYTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="secret_code" type="TINYTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-2">
+        <createTable tableName="global_settings">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-3">
+        <createTable tableName="post_comments">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT"/>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-4">
+        <createTable tableName="post_votes">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-5">
+        <createTable tableName="posts">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="is_active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NEW" name="moderation_status" type="ENUM('NEW', 'ACCEPTED', 'DECLINED')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="view_count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="moderator_id" type="INT"/>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-6">
+        <createTable tableName="tag2post">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-7">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-8">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_moderator" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="TEXT"/>
+            <column name="reg_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_time" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-9">
+        <addUniqueConstraint columnNames="post_id, tag_id" constraintName="t2p" tableName="tag2post"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-10">
+        <addUniqueConstraint columnNames="post_id, user_id" constraintName="userpost" tableName="post_votes"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-11">
+        <createIndex indexName="FK5lidm6cqbc7u4xhqpxm898qme" tableName="posts">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-12">
+        <createIndex indexName="FK6m7nr3iwh1auer2hk7rd05riw" tableName="posts">
+            <column name="moderator_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-13">
+        <createIndex indexName="FK9jh5u17tmu1g7xnlxa77ilo3u" tableName="post_votes">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-14">
+        <createIndex indexName="FK9q09ho9p8fmo6rcysnci8rocc" tableName="post_votes">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-15">
+        <createIndex indexName="FKaawaqxjs3br8dw5v90w7uu514" tableName="post_comments">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-16">
+        <createIndex indexName="FKc3b7s6wypcsvua2ycn4o1lv2c" tableName="post_comments">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-17">
+        <createIndex indexName="FKjou6suf2w810t2u3l96uasw3r" tableName="tag2post">
+            <column name="tag_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-18">
+        <createIndex indexName="FKpjoedhh4h917xf25el3odq20i" tableName="tag2post">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-19">
+        <createIndex indexName="FKsnxoecngu89u3fh4wdrgf0f2g" tableName="post_comments">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-20">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="posts" constraintName="FK5lidm6cqbc7u4xhqpxm898qme" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-21">
+        <addForeignKeyConstraint baseColumnNames="moderator_id" baseTableName="posts" constraintName="FK6m7nr3iwh1auer2hk7rd05riw" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-22">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="post_votes" constraintName="FK9jh5u17tmu1g7xnlxa77ilo3u" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="post_votes" constraintName="FK9q09ho9p8fmo6rcysnci8rocc" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-24">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="post_comments" constraintName="FKaawaqxjs3br8dw5v90w7uu514" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-25">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="post_comments" constraintName="FKc3b7s6wypcsvua2ycn4o1lv2c" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="post_comments" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-26">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="tag2post" constraintName="FKjou6suf2w810t2u3l96uasw3r" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="tags" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-27">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="tag2post" constraintName="FKpjoedhh4h917xf25el3odq20i" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663156179-28">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="post_comments" constraintName="FKsnxoecngu89u3fh4wdrgf0f2g" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-1">
+        <createTable tableName="captcha_codes">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="TINYTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="secret_code" type="TINYTEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-2">
+        <createTable tableName="global_settings">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-3">
+        <createTable tableName="post_comments">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="INT"/>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-4">
+        <createTable tableName="post_votes">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="TINYINT(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-5">
+        <createTable tableName="posts">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="is_active" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NEW" name="moderation_status" type="ENUM('NEW', 'ACCEPTED', 'DECLINED')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="view_count" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="moderator_id" type="INT"/>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-6">
+        <createTable tableName="tag2post">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="post_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-7">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-8">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_moderator" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="photo" type="TEXT"/>
+            <column name="reg_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_time" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-9">
+        <addUniqueConstraint columnNames="post_id, tag_id" constraintName="t2p" tableName="tag2post"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-10">
+        <addUniqueConstraint columnNames="post_id, user_id" constraintName="userpost" tableName="post_votes"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-11">
+        <createIndex indexName="FK5lidm6cqbc7u4xhqpxm898qme" tableName="posts">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-12">
+        <createIndex indexName="FK6m7nr3iwh1auer2hk7rd05riw" tableName="posts">
+            <column name="moderator_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-13">
+        <createIndex indexName="FK9jh5u17tmu1g7xnlxa77ilo3u" tableName="post_votes">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-14">
+        <createIndex indexName="FK9q09ho9p8fmo6rcysnci8rocc" tableName="post_votes">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-15">
+        <createIndex indexName="FKaawaqxjs3br8dw5v90w7uu514" tableName="post_comments">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-16">
+        <createIndex indexName="FKc3b7s6wypcsvua2ycn4o1lv2c" tableName="post_comments">
+            <column name="parent_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-17">
+        <createIndex indexName="FKjou6suf2w810t2u3l96uasw3r" tableName="tag2post">
+            <column name="tag_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-18">
+        <createIndex indexName="FKpjoedhh4h917xf25el3odq20i" tableName="tag2post">
+            <column name="post_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-19">
+        <createIndex indexName="FKsnxoecngu89u3fh4wdrgf0f2g" tableName="post_comments">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-20">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="posts" constraintName="FK5lidm6cqbc7u4xhqpxm898qme" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-21">
+        <addForeignKeyConstraint baseColumnNames="moderator_id" baseTableName="posts" constraintName="FK6m7nr3iwh1auer2hk7rd05riw" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-22">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="post_votes" constraintName="FK9jh5u17tmu1g7xnlxa77ilo3u" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-23">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="post_votes" constraintName="FK9q09ho9p8fmo6rcysnci8rocc" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-24">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="post_comments" constraintName="FKaawaqxjs3br8dw5v90w7uu514" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-25">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="post_comments" constraintName="FKc3b7s6wypcsvua2ycn4o1lv2c" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="post_comments" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-26">
+        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="tag2post" constraintName="FKjou6suf2w810t2u3l96uasw3r" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="tags" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-27">
+        <addForeignKeyConstraint baseColumnNames="post_id" baseTableName="tag2post" constraintName="FKpjoedhh4h917xf25el3odq20i" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="posts" validate="true"/>
+    </changeSet>
+    <changeSet author="Pavel (generated)" id="1621663547643-28">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="post_comments" constraintName="FKsnxoecngu89u3fh4wdrgf0f2g" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
