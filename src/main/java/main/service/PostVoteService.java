@@ -1,24 +1,20 @@
 package main.service;
 
-import main.api.responses.GenericResponseObject;
+import lombok.RequiredArgsConstructor;
 import main.model.Post;
 import main.model.PostVote;
-import main.model.User;
 import main.repository.PostVoteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class PostVoteService {
 
-    @Autowired
-    private PostVoteRepository postVoteRepository;
-
-    @Autowired
-    private AuthService authService;
+    private final PostVoteRepository postVoteRepository;
+    private final AuthService authService;
 
     //метод для установки лайка или дизлайка посту от определенного пользователя
     public boolean likeTrigger(Post post, int trigger){

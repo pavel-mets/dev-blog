@@ -1,27 +1,19 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.responses.SettingsDTO;
 import main.model.GlobalSettings;
 import main.repository.GlobalSettingsRepository;
-import main.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SettingService {
 
-    @Autowired
-    private GlobalSettingsRepository globalSettingsRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private AuthService authService;
+    private final GlobalSettingsRepository globalSettingsRepository;
 
     //метод получения глобальных параметров
     public SettingsDTO getGlobalSettings(){

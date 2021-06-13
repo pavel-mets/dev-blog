@@ -1,10 +1,10 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.responses.TagsDTO;
-import main.exceptions.NotFoundException;
+import main.exception.NotFoundException;
 import main.model.Tag;
 import main.repository.TagRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TagsService {
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
     //метод получения тегов и их количеств из БД по запросу query или его отсутствию
     public TagsDTO getTagsByQuery(String query){

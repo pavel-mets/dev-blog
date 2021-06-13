@@ -5,20 +5,20 @@ import com.github.cage.image.EffectConfig;
 import com.github.cage.image.Painter;
 import com.github.cage.image.ScaleConfig;
 import com.github.cage.token.RandomTokenGenerator;
+import lombok.RequiredArgsConstructor;
 import main.api.requests.ProfileRequest;
 import main.api.requests.RegisterRequest;
 import main.api.responses.CaptchaDTO;
 import main.api.responses.LoginDTO;
 import main.api.responses.RegisterDTO;
-import main.exceptions.RegisterException;
-import main.exceptions.UnauthorizedException;
+import main.exception.RegisterException;
+import main.exception.UnauthorizedException;
 import main.model.CaptchaCodes;
 import main.model.User;
 import main.repository.CaptchaCodesRepository;
 import main.repository.PostRepository;
 import main.repository.UserRepository;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,28 +35,15 @@ import java.util.Random;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private PostService postService;
-
-    @Autowired
-    private ImageFileService imageFileService;
-
-    @Autowired
-    private CaptchaCodesRepository captchaCodesRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private MailService mailService;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+    private final ImageFileService imageFileService;
+    private final CaptchaCodesRepository captchaCodesRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
     @Value("${blog.captcha.expire}")
     int captchaExpire;

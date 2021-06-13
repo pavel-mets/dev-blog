@@ -1,12 +1,11 @@
 package main.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import main.api.requests.CommentRequest;
 import main.api.requests.ModerationRequest;
 import main.api.requests.ProfileRequest;
 import main.api.responses.*;
 import main.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApiGeneralController {
 
     private final InitDTO initDTO;
@@ -25,9 +24,7 @@ public class ApiGeneralController {
     private final CommentService commentService;
     private final ModerationService moderationService;
     private final ImageFileService imageFileService;
-
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @GetMapping("/api/init")
     public ResponseEntity<InitDTO> init() {
@@ -117,5 +114,4 @@ public class ApiGeneralController {
     public void setSettings(@RequestBody SettingsDTO request){
         settingService.setGlobalSettings(request);
     }
-
 }

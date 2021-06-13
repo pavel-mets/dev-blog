@@ -1,29 +1,23 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.requests.CommentRequest;
 import main.api.responses.GenericResponseObject;
-import main.exceptions.BadRequestException;
+import main.exception.BadRequestException;
 import main.model.PostComments;
 import main.repository.PostCommentsRepository;
 import main.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
-    @Autowired
-    private PostRepository postRepository;
 
-    @Autowired
-    private PostCommentsRepository postCommentsRepository;
-
-    @Autowired
-    private PostService postService;
-
-    @Autowired
-    private AuthService authService;
+    private final PostRepository postRepository;
+    private final PostCommentsRepository postCommentsRepository;
+    private final AuthService authService;
 
     public GenericResponseObject addComment(CommentRequest commentRequest){
         //объект ответа

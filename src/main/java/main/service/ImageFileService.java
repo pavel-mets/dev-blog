@@ -1,7 +1,7 @@
 package main.service;
 
 import main.api.responses.GenericResponseObject;
-import main.exceptions.BadRequestException;
+import main.exception.BadRequestException;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.beans.factory.annotation.Value;

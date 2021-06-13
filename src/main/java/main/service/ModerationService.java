@@ -1,23 +1,19 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.requests.ModerationRequest;
-import main.api.responses.GenericResponseObject;
-import main.exceptions.NotFoundException;
 import main.model.Post;
 import main.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ModerationService {
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private AuthService authService;
+    private final PostRepository postRepository;
+    private final AuthService authService;
 
     public boolean setModerationStatus(ModerationRequest moderationRequest){
         Optional<Post> optionalPost = postRepository.findById(moderationRequest.getPostId());

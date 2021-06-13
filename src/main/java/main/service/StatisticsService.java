@@ -1,11 +1,11 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.responses.StatisticsDTO;
-import main.exceptions.NotFoundException;
-import main.exceptions.UnauthorizedException;
+import main.exception.NotFoundException;
+import main.exception.UnauthorizedException;
 import main.model.User;
 import main.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -13,16 +13,12 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class StatisticsService {
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private SettingService settingService;
-
-    @Autowired
-    private AuthService authService;
+    private final PostRepository postRepository;
+    private final SettingService settingService;
+    private final AuthService authService;
 
     public StatisticsDTO statisticsAll(){
         //если настройки позволяют показывать статистику всем, то пропускаем следующие проверки

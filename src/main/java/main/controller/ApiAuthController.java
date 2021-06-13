@@ -1,6 +1,6 @@
 package main.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import main.api.requests.LoginRequest;
 import main.api.requests.ProfileRequest;
 import main.api.requests.RegisterRequest;
@@ -19,11 +19,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApiAuthController {
 
     private final AuthenticationManager authenticationManager;

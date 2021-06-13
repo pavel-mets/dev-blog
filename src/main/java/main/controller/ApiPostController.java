@@ -1,33 +1,25 @@
 package main.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import main.api.requests.LikeRequest;
 import main.api.responses.GenericResponseObject;
 import main.api.responses.PostsDTO;
-import main.model.Post;
 import main.repository.PostRepository;
 import main.service.PostService;
 import main.service.PostVoteService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApiPostController {
 
     private final PostService postService;
     private final PostVoteService postVoteService;
-
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
     @GetMapping("/api/post")
     public ResponseEntity<PostsDTO> visiblePosts(@RequestParam(value = "offset", defaultValue = "0") Integer offset,

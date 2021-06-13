@@ -1,16 +1,15 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.responses.CommentDTO;
 import main.api.responses.GenericResponseObject;
 import main.api.responses.PostsDTO;
-import main.exceptions.NotFoundException;
-import main.exceptions.UnauthorizedException;
+import main.exception.NotFoundException;
+import main.exception.UnauthorizedException;
 import main.model.*;
 import main.repository.PostRepository;
 import main.repository.Tag2PostRepository;
 import main.repository.TagRepository;
-import main.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,25 +26,14 @@ import java.util.stream.Collectors;
 import static java.time.ZoneOffset.UTC;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
 
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
-
-    @Autowired
-    private Tag2PostRepository tag2PostRepository;
-
-    @Autowired
-    private AuthService authService;
-
-    @Autowired
-    private TagsService tagsService;
+    private final PostRepository postRepository;
+    private final TagRepository tagRepository;
+    private final Tag2PostRepository tag2PostRepository;
+    private final AuthService authService;
+    private final TagsService tagsService;
 
     //метод получения всех видимых постов (is_active = 1; time < текущей даты и времени; moderation_satus = ACCEPTED)
     public PostsDTO getVisiblePosts(Integer offset, Integer limit, String mode) {

@@ -1,5 +1,7 @@
 spring.datasource:
-        url: jdbc:${CLEARDB_PUCE_URL:mysql://localhost:3306/blog}?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+         url: jdbc:mysql://localhost:3306/blog?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+         username: ${MYSQLUSER}
+         password: ${MYSQLPASS}
 server.port: ${PORT:8080}
 spring.jpa:
         hibernate.ddl-auto: none
@@ -7,15 +9,15 @@ spring.jpa:
         properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
 
 spring.liquibase:
-        enabled: false
-        change-log: classpath:/db/changelog/db.changelog-master.xml
+        enabled: true
+        change-log: classpath:/db/changelog/changelog-master.xml
 
 blog:
         title: DevPub
         subtitle: Рассказы разработчиков
-        phone: +7 903 666-44-55
-        copyright: Дмитрий Сергеев
-        copyrightFrom: 2005
+        phone: +7 926 857-33-88
+        copyright: Мец Павел
+        copyrightFrom: 2020
 
 #время устаревания капчи и ссылки на смену пароля в минутах
         captcha.expire: 10
@@ -41,7 +43,7 @@ spring.servlet.multipart.max-request-size: 20MB
 spring.mail:
         host: smtp.gmail.com
         port: 587
-        username: padre.mets@gmail.com
-        password: ulnrhkulkvawzixh
+        username: ${EMAIL}
+        password: ${EMAILPASS}
         properties.mail.smtp.auth: true
         properties.mail.smtp.starttls.enable: true

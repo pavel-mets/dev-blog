@@ -1,19 +1,17 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.api.responses.CalendarDTO;
 import main.repository.PostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-import static java.time.ZoneOffset.UTC;
-
 @Service
+@RequiredArgsConstructor
 public class CalendarService {
 
-    @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
     public CalendarDTO getCalendar(Integer year){
         if (year == null) year = LocalDate.now().getYear();
